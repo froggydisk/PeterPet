@@ -1,6 +1,7 @@
 import React from "react";
 import Loading from "./src/loading";
 import Main from "./src/main";
+import 'react-native-gesture-handler';
   
 export default class extends React.Component{
   state={

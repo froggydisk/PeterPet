@@ -17,7 +17,7 @@ function ChatScreen() {
         justifyContent: 'center',
       },
       font: {
-        fontSize: 32,
+        fontSize: 22,
         marginBottom: 10,
       },
     });

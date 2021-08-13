@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from "react-native";
 function SettingsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.font}>settings</Text>
+      <Text style={styles.font}>Settings</Text>
     </View>
   );
 }
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   font: {
-    fontSize: 32,
+    fontSize: 22,
     marginBottom: 10,
   },
 });
