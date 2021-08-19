@@ -1,11 +1,14 @@
-import * as React from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
+import { Fontisto } from '@expo/vector-icons'; 
+import IconBadge from 'react-native-icon-badge';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Feather, Ionicons, AntDesign } from '@expo/vector-icons'; 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import HomeScreen from "./screen/HomeScreen"
 import SettingsScreen from "./screen/SettingsScreen"
@@ -28,7 +31,6 @@ const TabNavigator = () => (
               return (
                 <Feather size={size} name={iconName} color={color} />
               );
-              break;
             case 'Chat':
               iconName = 'forum-outline';
               break;
@@ -62,7 +64,7 @@ const TabNavigator = () => (
     headerTitleStyle: {
       fontSize: 18,
       textAlign: 'center',
-    },},{ headerShown: false }} />
+    },},{ headerShown: false },{ tabBarBadge: 1 }} />
     <Tab.Screen options={{ headerShown: false }} name="Community" component={CommunityScreen} />
     <Tab.Screen options={{ headerShown: false }} name="Settings" component={SettingsScreen} />
   </Tab.Navigator>
@@ -80,26 +82,57 @@ function LogoTitle() {
 }
 
 export default function App() {
+
+  const [count, setCount] = useState(0);
+  const onPress = () => setCount(prevCount => prevCount + 1);
+
+  const [loaded] = useFonts({
+    DancingScript: require('../assets/fonts/DancingScript-Bold.ttf'),
+  });
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator >
+      <Stack.Navigator>
         <Stack.Screen
           name="Home"
           component={TabNavigator}
           options={{
             headerTitle: (props) => <LogoTitle {...props} />,
             headerRight: () => (
-              <Button
-                onPress={() => alert('This is a button!')}
-                title="Info"
-                color="black"
-              />),
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',}}>
+                <TouchableOpacity 
+                  style={{paddingHorizontal: 12}}
+                  onPress={onPress}
+                  >
+                  <IconBadge
+                    MainElement={
+                      <Fontisto name="bell" size={20} color='#283328'/>
+                    }
+                    BadgeElement={
+                      <Text style={[{color:'#FFFFFF'},{fontSize: 10}]}>{count}</Text>
+                    }
+                    IconBadgeStyle={
+                      {width:10,
+                      height:10,
+                      borderRadius: 10,
+                      top: 0,
+                      left: 5,
+                      backgroundColor: 'red'}
+                    }
+                    // Hidden={this.state.BadgeCount==0}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => alert('This is a basket!')
+                  }>
+                  <Fontisto name="shopping-basket" size={20} color="#283328"/>
+                </TouchableOpacity>
+              </View>),
             headerLeft: () => (
-              <Button
-                onPress={() => alert('This is a button!')}
-                title="Info"
-                color="black"
-              />
+              <Text style={[{fontFamily:'DancingScript'},{fontSize: 18}]}>PeterPet</Text>
             ),
           }}
         />
@@ -107,4 +140,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
