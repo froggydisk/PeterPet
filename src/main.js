@@ -61,10 +61,10 @@ const TabNavigator = () => (
     <Tab.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
     <Tab.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
     <Tab.Screen name="Chat" component={ChatScreen} options={{
-    headerTitleStyle: {
-      fontSize: 18,
-      textAlign: 'center',
-    },},{ headerShown: false },{ tabBarBadge: 1 }} />
+    // headerTitleStyle: {
+    //   fontSize: 18,
+    //   textAlign: 'center',},},
+    headerShown: false, tabBarBadge: 1 }} />
     <Tab.Screen options={{ headerShown: false }} name="Community" component={CommunityScreen} />
     <Tab.Screen options={{ headerShown: false }} name="Settings" component={SettingsScreen} />
   </Tab.Navigator>
@@ -97,7 +97,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          name="Main"
           component={TabNavigator}
           options={{
             headerTitle: (props) => <LogoTitle {...props} />,
@@ -122,7 +122,7 @@ export default function App() {
                       left: 5,
                       backgroundColor: 'red'}
                     }
-                    // Hidden={this.state.BadgeCount==0}
+                    Hidden={count==0}
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
