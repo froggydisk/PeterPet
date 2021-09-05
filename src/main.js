@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Fontisto } from '@expo/vector-icons'; 
 import IconBadge from 'react-native-icon-badge';
@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, Feather, Ionicons, AntDesign } from '@expo/vector-icons'; 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {DataProvider} from './hooks';
 // import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -94,49 +95,51 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Main"
-          component={TabNavigator}
-          options={{
-            headerTitle: (props) => <LogoTitle {...props} />,
-            headerRight: () => (
-              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',}}>
-                <TouchableOpacity 
-                  style={{paddingHorizontal: 12}}
-                  onPress={onPress}
-                  >
-                  <IconBadge
-                    MainElement={
-                      <Fontisto name="bell" size={20} color='#283328'/>
-                    }
-                    BadgeElement={
-                      <Text style={[{color:'#FFFFFF'},{fontSize: 10}]}>{count}</Text>
-                    }
-                    IconBadgeStyle={
-                      {width:10,
-                      height:10,
-                      borderRadius: 10,
-                      top: 0,
-                      left: 5,
-                      backgroundColor: 'red'}
-                    }
-                    Hidden={count==0}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => alert('This is a basket!')
-                  }>
-                  <Fontisto name="shopping-basket" size={20} color="#283328"/>
-                </TouchableOpacity>
-              </View>),
-            headerLeft: () => (
-              <Text style={[{fontFamily:'DancingScript'},{fontSize: 18}]}>PeterPet</Text>
-            ),
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <DataProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Main"
+            component={TabNavigator}
+            options={{
+              headerTitle: (props) => <LogoTitle {...props} />,
+              headerRight: () => (
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center',}}>
+                  <TouchableOpacity 
+                    style={{paddingHorizontal: 12}}
+                    onPress={onPress}
+                    >
+                    <IconBadge
+                      MainElement={
+                        <Fontisto name="bell" size={20} color='#283328'/>
+                      }
+                      BadgeElement={
+                        <Text style={[{color:'#FFFFFF'},{fontSize: 10}]}>{count}</Text>
+                      }
+                      IconBadgeStyle={
+                        {width:10,
+                        height:10,
+                        borderRadius: 10,
+                        top: 0,
+                        left: 5,
+                        backgroundColor: 'red'}
+                      }
+                      Hidden={count==0}
+                      />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => alert('This is a basket!')
+                    }>
+                    <Fontisto name="shopping-basket" size={20} color="#283328"/>
+                  </TouchableOpacity>
+                </View>),
+              headerLeft: () => (
+                <Text style={[{fontFamily:'DancingScript'},{fontSize: 18}]}>PeterPet</Text>
+              ),
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </DataProvider>
   );
 }
