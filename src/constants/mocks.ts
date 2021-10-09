@@ -22,7 +22,7 @@ export const USERS: IUser[] = [
     about:
       '도쿄 자취남 (백수)',
     avatar:
-      'https://github.com/froggydisk/froggydisk.github.io/blob/master/assets/images/blog_profile.JPG?raw=true',
+      'http://localhost:5000/images/image_1633601642710_433FB8FE-9D98-404C-A4D6-B91A6721E23F.jpg',
   },
   {
     id: 2,
