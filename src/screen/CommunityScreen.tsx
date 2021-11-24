@@ -51,7 +51,7 @@ function CommunityScreen() {
   };
 
   const handleUploadImage = () => {
-    fetch("http://localhost:5000/api/upload", {
+    fetch("http://localhost:6000/api/upload", {
       method: "post",
       headers:{ 
         'Content-Type':'multipart/form-data', 
@@ -74,7 +74,7 @@ function CommunityScreen() {
     const textbox = {
       inText: userEmail,
     };
-    fetch("http://localhost:5000/api/text", { 
+    fetch("http://localhost:6000/api/text", { 
       method: "post", //통신방법
       headers: {
         Accept: 'application/json', 

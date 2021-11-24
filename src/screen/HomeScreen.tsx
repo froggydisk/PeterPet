@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import {StyleSheet, Button, Text, View, TouchableOpacity} from "react-native";
+import React, { Component, useEffect, useState } from 'react';
+import {StyleSheet, Image, Text, View, TouchableOpacity} from "react-native";
 import { useFonts } from 'expo-font';
 import { AntDesign } from '@expo/vector-icons'; 
-import DatePicker from 'react-native-neat-date-picker'
+import DatePicker from 'react-native-neat-date-picker';
+import {firebase_db} from "../firebaseConfig"
+
 
 export default function HomeScreen() { 
 
+  const [data, setData] = useState([]);
   const [showDatePicker, setShowDatePicker] = useState(false)
 
   const openDatePicker = () => {
@@ -33,6 +36,14 @@ export default function HomeScreen() {
     return null;
   }
 
+  firebase_db.ref()
+  .once('value')
+  .then(snapshot => {
+  console.log('User data: ', snapshot.val());
+  var poster = snapshot.val();
+  setData(poster)
+  });
+
   // 본문
   return (
     <View style={styles.container}>
@@ -46,17 +57,29 @@ export default function HomeScreen() {
         mode={'single'}
         onCancel={onCancel}
         onConfirm={onConfirm}
-      />
+        />
       </View>
       <View style={styles.title}><Text>title</Text></View>
       <View style={styles.content}>
         <Text><Text style={{fontFamily:'DancingScript'}}>PeterPet</Text> is coming soon!</Text>
         <Text>Please wait for a while</Text>
       </View>
-      <View style={styles.footer}></View>
+      <View style={styles.footer}>
+        {
+          data.map(value => {
+            return(
+            <View>
+              <Image style={{height: 100, width: 100}} source={{uri: value.image}} />
+              <Text>{value.name}</Text>
+            </View>
+            )
+          })
+        }
+      </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
